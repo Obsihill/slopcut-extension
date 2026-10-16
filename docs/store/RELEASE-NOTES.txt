@@ -1,0 +1,10 @@
+딸깍컷 / SlopCut 1.5.0
+
+
+공개 출시 준비 버전입니다. 한국어 이름 딸깍컷, 영문 이름 SlopCut을 적용했습니다.
+Unity Asset Store·BOOTH 판매자 차단, 검은 먼지 효과, 목록 관리와 JSON 백업, 라이트/다크 테마를 제공합니다.
+기존 SlopBlock과 차단 목록·테마 저장 형식을 공유합니다. 스토어 설치로 옮기기 전 JSON 백업을 내보내세요.
+
+This release prepares the bilingual SlopCut / 딸깍컷 brand for public distribution.
+Seller blocking, the dust effect, local list management, JSON backup/merge, and system/light/dark appearance are included.
+Settings labels remain Korean. Back up your list before switching to a different installation ID.

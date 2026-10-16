@@ -1,0 +1,20 @@
+SlopCut / 딸깍컷 1.5.0 — certification notes
+
+No extension account, subscription, payment, test credentials, or developer server is required. Public marketplace pages can be used.
+
+1. Open https://assetstore.unity.com/ko-KR/listing and wait for product cards.
+2. Each supported seller label has a small button labeled 차단 (Block). Click one.
+3. The selected seller's visible cards dissolve for about 0.9 seconds, then hide. Other cards move into place. The listing is not reloaded.
+4. Reload: the same seller's cards should be hidden immediately.
+5. Repeat on https://booth.pm/ko/browse/3D%20Environments%20/%20World using an unblocked seller.
+6. Open a product detail page. Blocking its MAIN seller waits for the effect and then navigates back, or to the marketplace home when there is no previous history entry. Blocking a seller on a recommendation card only hides matching cards.
+7. Click the extension toolbar icon to open the management page. Search/filter sellers, disable hiding per site or globally, and unblock a seller using 차단 해제. The affected open tabs update without reload.
+8. Export a JSON backup and import it: valid entries merge with the current list. The extension has no downloads API permission; export uses a user-initiated browser download.
+9. Select browser/system, light, or dark appearance. The default follows prefers-color-scheme. Theme preference is stored separately from seller state.
+
+Korean UI uses the name 딸깍컷; other browser locales use SlopCut. Settings labels and injected buttons are currently Korean in both locales; this is disclosed in the English listing.
+Click effects intentionally play even when OS reduced motion is enabled, following the publisher's design. Hidden tabs skip the effect, and at most eight visible regions animate. Previously blocked sellers and blocks from other tabs hide immediately.
+
+The extension only hides local display elements: no marketplace account action, purchase, report, AI classification, or moderation request occurs. Result counts/page numbers remain the website's values. Custom BOOTH themes and site markup changes may affect compatibility.
+
+Management screenshots use clearly labeled sample records; the dust screenshot uses sample product cards. The Unity and BOOTH button screenshots are cropped captures of the real pages. Third-party product imagery is incidental to explaining the extension and does not imply endorsement or an adverse evaluation of a seller.

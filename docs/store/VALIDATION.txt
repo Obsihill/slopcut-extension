@@ -1,0 +1,6 @@
+SlopCut 1.5.0 — 2026-10-17
+21 automated tests passed (16 functional/localization/storage/theme tests + 5 Edge browser animation tests).
+Metadata, localized descriptions, listing length/search limits, storage-only permissions, referenced runtime files, five 1280x800 screenshots, 300x300 logo and policy files verified.
+Public URL configuration and optional MIT activation verified in an isolated copy with fictitious publisher information.
+Installed-folder files match repository extension files; storage keys are preserved.
+ZIP integrity verified. This does not represent Microsoft review approval or a fresh live-site end-to-end test of every page variation.

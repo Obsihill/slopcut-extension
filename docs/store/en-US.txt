@@ -1,0 +1,35 @@
+Extension name
+SlopCut
+
+Short description — matches the en manifest message
+Hide products from sellers you choose on Unity Asset Store and BOOTH. Block sellers beside their names and manage your list locally.
+
+Detailed description
+Keep marketplace listings focused on sellers you want to see.
+
+SlopCut adds a small blocking button beside seller names on Unity Asset Store and BOOTH. Clicking it hides matching product cards in your browser. It does not modify your marketplace account, submit reports, or block a seller through the marketplace's own account system.
+
+Features
+• Block sellers from listing cards and supported product detail pages.
+• Watch newly blocked cards dissolve into dark dust while remaining cards move into place without reloading the listing.
+• Pause hiding globally or for each supported site.
+• Search and filter your blocked list, add sellers by URL or ID, and unblock them.
+• Export a local JSON backup and merge a backup into your current list.
+• Use a classic Windows XP-style settings page with system, light, and dark appearance.
+
+Your list and settings stay in the current browser profile. The extension has no developer-operated server, analytics, advertising trackers, or sign-up requirement. Exported backup files are controlled by you.
+
+The name is displayed as 딸깍컷 in Korean and SlopCut otherwise. The management interface, button labels, and status messages currently use Korean; the blocking button is labeled 차단.
+
+Please note: SlopCut does not detect or classify AI-generated content. Only sellers you select are hidden. Marketplace result counts and page numbers are unchanged. Compatibility can vary with page redesigns and custom BOOTH shop themes. Blocking the main seller on a detail page returns to the previous page after the effect, or the marketplace home if no previous page exists. Previously blocked products are hidden immediately. Explicitly requested effects also play when OS reduced motion is enabled.
+
+SlopCut is not affiliated with Unity, BOOTH, or Microsoft.
+
+Search terms — seven terms
+seller blocker
+hide products
+Unity Asset Store
+BOOTH
+marketplace filter
+SlopCut
+딸깍컷

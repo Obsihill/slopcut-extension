@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>딸깍컷 / SlopCut 애니메이션 미리보기</title>
+<link rel="stylesheet" href="../../extension/content.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#ece9d8;color:#111;font:12px Tahoma,"굴림",sans-serif}.title{background:linear-gradient(#2b8aff,#0053dd);color:white;padding:6px;font-weight:bold;display:flex;align-items:center;gap:5px}.bar{padding:8px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #aca899}button{font:inherit;border:1px solid;border-color:white #808080 #808080 white;background:#ece9d8;border-radius:0;padding:3px 10px;cursor:pointer}button:disabled{color:#808080}.grid{margin:0;padding:16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;list-style:none;background:#fafaf7;min-height:340px;align-content:start}.card{background:white;border:1px solid #aaa;min-width:0;overflow:hidden}.card svg{display:block;width:100%;height:155px}.card h2{font-size:13px;padding:0 9px;margin:12px 0 6px}.seller{display:flex;align-items:center;padding:0 9px 12px;min-height:32px;gap:3px}.seller span{color:#004bb2}.foot{padding:6px;border-top:1px solid #aca899;color:#555}@media(max-width:650px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="title"><img src="../../extension/icons/icon-16.png" width="16" height="16" alt="">딸깍컷 / SlopCut - 애니메이션 미리보기</div>
+<div class="bar"><button id="play">차단 효과 재생</button><span>같은 판매자의 카드 2개가 사라집니다.</span></div>
+<ul class="grid" id="grid"></ul>
+<div class="foot">샘플 상품입니다. 실제 차단 목록에는 영향을 주지 않습니다.</div>
+<script src="../../extension/effects.js"></script>
+<script>
+const entries=[['숲 배경 에셋','Sample Studio','#527253','#afc49d',true],['도시 배경 에셋','Other Studio','#586c87','#bec9d5',false],['산 배경 에셋','Sample Studio','#826b55','#d7b98b',true],['밤하늘 에셋','Night Studio','#313b63','#999bc5',false]];
+let playing=false;
+function reset(){document.getElementById('grid').innerHTML=entries.map(([title,seller,bg,fg,blocked],i)=>`<li class="card" ${blocked?'data-target="true"':''}><svg viewBox="0 0 230 155" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="230" height="155" fill="${bg}"/><circle cx="179" cy="34" r="19" fill="#eee3b2"/><path d="M0 155L75 42l65 67 37-42 53 88" fill="${fg}"/><path d="M0 155l45-41 29 20 30-22 46 43" fill="${bg}" opacity=".6"/></svg><h2>${title}</h2><div class="seller"><span>${seller}</span>${blocked?'<button class="asb-button" type="button">차단</button>':''}</div></li>`).join('');for(const b of document.querySelectorAll('.asb-button'))b.onclick=play;}
+async function play(){if(playing)return;playing=true;reset();document.getElementById('play').disabled=true;const cards=[...document.querySelectorAll('[data-target]')];await ASBEffects.dissolve(cards,()=>cards.forEach(el=>el.setAttribute('data-asb-hidden','true')));setTimeout(()=>{playing=false;document.getElementById('play').disabled=false;document.getElementById('play').textContent='다시 재생';},260);}
+document.getElementById('play').onclick=play;reset();
+</script>
+</body></html>

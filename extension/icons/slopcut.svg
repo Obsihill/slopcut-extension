@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <title>SlopCut</title>
+  <path d="M7 1h2v1h3v1h2v6h-1v2h-1v1h-2v1H9v1H7v-1H6v-1H4v-1H3V9H2V3h2V2h3z" fill="#404040"/>
+  <path d="M7 2h2v1h3v1h1v5h-1v2h-2v1H9v1H7v-1H6v-1H4V9H3V4h2V3h2z" fill="#ece9d8"/>
+  <path d="M3 4h2V3h2V2h2v1H7v1H5v1H4v4H3z" fill="#fff"/>
+  <path d="M12 4h1v5h-1v2h-2v1H9v1H7v-1h2v-1h1v-1h1V9h1z" fill="#9c9c94"/>
+  <path d="M7 4h3v1h1v1h1v3h-1v1h-1v1H7v-1H6V9H5V6h1V5h1z" fill="#800000"/>
+  <path d="M7 5h3v1h1v3h-1v1H7V9H6V6h1z" fill="#c83030"/>
+  <path d="M7 5h3v1H7V7H6V6h1z" fill="#f07060"/>
+  <path d="M7 7h3v1H7z" fill="#fff"/>
+</svg>

@@ -1,0 +1,29 @@
+Partner Center privacy answers — SlopCut 1.5.0
+
+Single purpose (English)
+Hide product listings from sellers explicitly chosen by the user on Unity Asset Store and BOOTH, with a local list for managing those choices.
+
+단일 목적 (한국어)
+사용자가 Unity 에셋스토어와 BOOTH에서 선택한 판매자의 상품을 숨기고 그 선택을 로컬 목록에서 관리합니다.
+
+storage permission justification
+Store the user's selected seller site, seller ID, display name, time added, global/site hiding preferences, and theme preference in the current browser profile. No developer server receives these values.
+
+Content-script site access justification
+https://assetstore.unity.com/* : identify publisher links and product cards, insert a user-operated Block button, and hide cards matching the local blocked list.
+https://booth.pm/* : the same functionality for BOOTH marketplace listings and product detail pages.
+https://*.booth.pm/* : identify BOOTH shop subdomains and compatible custom shop product cards. Runtime adapters exclude account, checkout, admin and conversation screens.
+There is no separate host_permissions entry, activeTab, scripting, cookies, history, webRequest or downloads API permission. Site access is declared by static content-script matches.
+
+Remote code
+No. All executable JavaScript, CSS, and icon assets are packaged with the extension. No eval, remote scripts, or external runtime CDN is used. The Canvas mask is generated locally from random noise; it is not a screenshot and does not read image pixels.
+
+Data usage recommendation
+No user data is transmitted to or collected by the developer or third parties through extension telemetry, analytics, or a backend. The extension DOES process seller-related page content locally and store user choices, as explained in the privacy policy. Do not describe the extension as processing no data at all.
+If the current dashboard distinguishes local access/processing from developer collection, disclose local seller IDs/display names and preferences consistently with the policy rather than blindly copying a checkbox answer.
+
+Not accessed for extension functionality
+Marketplace credentials, cookies, payment details, purchase history, or full browsing history. The extension reads supported page DOM elements to identify seller labels and product-card boundaries.
+
+Privacy policy URL
+Publish docs/privacy.html through GitHub Pages (source: main /docs). The final URL requires the repository owner; run scripts/configure-publication.py first and verify the public URL is reachable before submission.

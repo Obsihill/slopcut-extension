@@ -1,0 +1,14 @@
+{
+  "extensionName": {
+    "message": "SlopCut"
+  },
+  "extensionDescription": {
+    "message": "Hide products from sellers you choose on Unity Asset Store and BOOTH. Block sellers beside their names and manage your list locally."
+  },
+  "actionTitle": {
+    "message": "SlopCut · Manage blocked sellers"
+  },
+  "optionsTitle": {
+    "message": "SlopCut - Manage blocked sellers"
+  }
+}

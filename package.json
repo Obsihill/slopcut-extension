@@ -1,0 +1,21 @@
+{
+  "name": "slopcut-extension",
+  "version": "1.5.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Seller filtering for Unity Asset Store and BOOTH.",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "test": "node --test tests/extension.test.cjs",
+    "test:browser": "node --test tests/animation.test.cjs",
+    "check": "node scripts/check-release.cjs",
+    "package": "python scripts/package.py"
+  },
+  "devDependencies": {
+    "jsdom": "29.1.1",
+    "playwright": "1.62.1",
+    "sharp": "0.35.5"
+  }
+}
