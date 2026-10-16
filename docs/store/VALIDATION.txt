@@ -1,6 +1,9 @@
-SlopCut 1.5.0 — 2026-10-17
-21 automated tests passed (16 functional/localization/storage/theme tests + 5 Edge browser animation tests).
+SlopCut 1.6.0 — 2026-10-17
+36 automated tests passed (25 functional/localization/storage/theme/marketplace tests + 11 headless Edge browser animation tests).
+Marketplace browser tests use local fixtures based on observed public DOM; they do not claim coverage of every live page variation.
+Installed Edge extension additionally verified on public CGTrader, Fab and TurboSquid listings: seller buttons, same-seller blocking, dust animation, persistence after reload and restoration after removing test blocks. Fab live product-detail blocking returned to the listing. Main-detail animation/navigation for all three sites is covered by automated browser tests.
+Six temporary live-test seller blocks were removed by the user; all three listings showed zero extension-hidden cards after reload.
 Metadata, localized descriptions, listing length/search limits, storage-only permissions, referenced runtime files, five 1280x800 screenshots, 300x300 logo and policy files verified.
 Public URL configuration and optional MIT activation verified in an isolated copy with fictitious publisher information.
 Installed-folder files match repository extension files; storage keys are preserved.
-ZIP integrity verified. This does not represent Microsoft review approval or a fresh live-site end-to-end test of every page variation.
+ZIP integrity verified. This does not represent Microsoft review approval. The previously submitted 1.5.0 review is not replaced by preparing this 1.6.0 package.

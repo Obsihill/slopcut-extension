@@ -19,14 +19,13 @@
   <div class="toolbar">
     <label><input id="enabled" type="checkbox">상품 숨기기</label>
     <span class="separator" aria-hidden="true"></span>
-    <label><input id="enabled-unity" type="checkbox">Unity Asset Store <span id="count-unity" class="muted"></span></label>
-    <label><input id="enabled-booth" type="checkbox">BOOTH <span id="count-booth" class="muted"></span></label>
+    <span id="site-controls" style="display:contents"></span>
     <label class="theme-control">테마 <select id="theme"><option value="system">브라우저 설정</option><option value="light">라이트</option><option value="dark">다크</option></select></label>
   </div>
   <section class="add-panel" aria-labelledby="add-title">
     <h2 id="add-title">판매자 직접 추가</h2>
     <form id="add" class="fields">
-      <label>사이트 <select id="add-site"><option value="unity">Unity Asset Store</option><option value="booth">BOOTH</option></select></label>
+      <label>사이트 <select id="add-site"></select></label>
       <label class="publisher-field">URL / ID <input id="publisher" required placeholder="https://assetstore.unity.com/publishers/12345" autocomplete="off"></label>
       <label>이름 <input id="name" placeholder="선택 입력" maxlength="200" autocomplete="off"></label>
       <button type="submit">차단 추가</button>
@@ -36,7 +35,7 @@
     <div class="list-toolbar">
       <h2 id="list-title">차단 목록 <span id="count">0<span>명</span></span></h2>
       <div class="list-controls">
-        <select id="site-filter" aria-label="차단 목록 사이트"><option value="">전체 사이트</option><option value="unity">Unity Asset Store</option><option value="booth">BOOTH</option></select>
+        <select id="site-filter" aria-label="차단 목록 사이트"><option value="">전체 사이트</option></select>
         <input id="search" type="search" aria-label="차단 목록 검색" placeholder="이름 / ID 검색">
       </div>
     </div>

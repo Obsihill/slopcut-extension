@@ -8,6 +8,79 @@ const root = path.resolve(__dirname, '../extension');
 const source = name => fs.readFileSync(path.join(root,name),'utf8');
 const copy = value => value === undefined ? undefined : JSON.parse(JSON.stringify(value));
 const settle = () => new Promise(resolve => setTimeout(resolve,200));
+const markets = require('./marketplace-fixtures.cjs');
+class VisibleObserver {
+  constructor(callback){this.callback=callback;}
+  observe(target){queueMicrotask(()=>this.callback([{target,isIntersecting:true}]));}
+  unobserve(){}
+}
+const previewFetch=async url=>({ok:true,text:async()=>markets.preview(new URL(url).pathname.includes('/2/')?'other-seller':'sample-seller')});
+
+test('three marketplace IDs are namespaced, canonical and reject off-site/profile injection',()=>{
+  const {ASB}=environment({version:2,sitesEnabled:{booth:false},blocked:[{site:'booth',id:'keep',name:'Keep'}]});
+  const cases=[['cgtrader','https://www.cgtrader.com/designers/Artist-3D','artist-3d'],['fab','https://www.fab.com/sellers/My%20Studio','my studio'],['turbosquid','https://www.turbosquid.com/Search/Artists/Studio_3D','studio_3d']];
+  for(const [site,url,id] of cases){
+    assert.equal(ASB.sellerId(site,url),id);assert.equal(ASB.sellerId(site,ASB.sellerUrl({site,id})),id);
+    for(const value of [url.replace('https:','http:'),url.replace('.com/','.com.evil.test/'),'https://evil.test/'+id,'javascript:alert(1)','../seller','x%2Fy',url.replace('.com/','.com/private/')])assert.equal(ASB.sellerId(site,value),null,value);
+    assert.equal(ASB.normalize({sitesEnabled:{booth:false}}).sitesEnabled[site],true);
+  }
+  assert.equal(ASB.normalize({sitesEnabled:{booth:false}}).sitesEnabled.booth,false);
+  assert.equal(new Set(cases.map(([site])=>ASB.key({site,id:'same'}))).size,3);
+});
+
+for(const site of ['cgtrader','fab','turbosquid']) {
+  test(`${site}: live DOM shape blocks all matching cells, preserves other sellers, appended and recycled cards`,async t=>{
+    const e=environment(),html=`<main><h1>Results</h1><div id="results">${markets.card(site)}${markets.card(site,'other-seller',2)}${markets.card(site,'sample-seller',3)}</div></main>`;
+    const dom=await e.tab(html,markets.urls[site],false,{IntersectionObserver:VisibleObserver,fetch:previewFetch});t.after(()=>dom.window.close());
+    const d=dom.window.document;await settle();
+    assert.equal(d.querySelectorAll('.asb-button').length,3);
+    const b=d.querySelector('#card-1 .asb-button');assert.equal(b.previousElementSibling.tagName,'A');assert.equal(b.closest('a'),null);
+    b.click();await settle();assert.equal(d.querySelectorAll('[data-asb-hidden]').length,2);assert.equal(d.querySelector('#card-2').dataset.asbHidden,undefined);
+    assert.equal(e.stored().blocked[0].site,site);assert.equal(dom.backCount,0);assert.deepEqual(dom.navigations,[]);
+    d.getElementById('results').insertAdjacentHTML('beforeend',markets.card(site,'sample-seller',4));await settle();await settle();
+    assert.equal(d.getElementById('card-4').dataset.asbHidden,'true');
+    await e.ASB.request('siteEnabled',{site,enabled:false});await settle();assert.equal(d.querySelectorAll('[data-asb-hidden]').length,0);
+    await e.ASB.request('siteEnabled',{site,enabled:true});await settle();assert.equal(d.querySelectorAll('[data-asb-hidden]').length,3);
+    await e.ASB.request('unblock',{site,id:'sample-seller'});await settle();assert.equal(d.querySelectorAll('[data-asb-hidden]').length,0);
+    if(site==='cgtrader')d.getElementById('card-1').setAttribute('data-attributes',JSON.stringify({itemBrand:'replacement'}));
+    if(site==='fab'){const a=d.querySelector('#card-1 a[href*="/sellers/"]');a.href='/sellers/replacement';a.textContent='replacement';}
+    if(site==='turbosquid')d.querySelector('#card-1 [data-search-result-turbo-frame-src-value]').setAttribute('data-search-result-turbo-frame-src-value','/3d-models/2/previews?panel_id=2');
+    await settle();await settle();
+    const expected=site==='turbosquid'?'other-seller':'replacement';assert.equal(d.querySelector('#card-1 .asb-button').dataset.seller,`${site}:${expected}`);
+  });
+  test(`${site}: main seller returns after save; recommendations do not navigate`,async t=>{
+    const e=environment(),dom=await e.tab(markets.detail(site),markets.details[site],false,{historyLength:2,IntersectionObserver:VisibleObserver,fetch:previewFetch});t.after(()=>dom.window.close());
+    const d=dom.window.document;await settle();
+    d.querySelector('#card-2 .asb-button').click();await settle();assert.equal(dom.backCount,0);assert.equal(d.querySelector('#card-2').dataset.asbHidden,'true');
+    d.querySelector('main .asb-button').click();await settle();assert.equal(dom.backCount,1);assert.equal(e.stored().blocked.length,2);
+  });
+}
+
+test('TurboSquid preview reads are same-origin, deduplicated, concurrent-bound and inert on failures',async t=>{
+  let active=0,max=0,requests=[];
+  const fetch=async(url,options)=>{
+    requests.push(url);assert.equal(new URL(url).origin,'https://www.turbosquid.com');assert.equal(options.redirect,'error');
+    active++;max=Math.max(max,active);await new Promise(r=>setTimeout(r,20));active--;
+    if(url.includes('/3/'))throw new Error('network unavailable');
+    return {ok:true,text:async()=>url.includes('/2/')?'<script>throw 1</script><a href="https://evil.test/Search/Artists/forged">forged</a>':markets.preview('sample-seller')};
+  };
+  const html=`<main>${markets.card('turbosquid','',1)}${markets.card('turbosquid','',2)}${markets.card('turbosquid','',3)}${markets.card('turbosquid','',4)}${markets.card('turbosquid','',5).replace('/3d-models/5/previews','https://evil.test/3d-models/5/previews')}${markets.card('turbosquid','',6).replaceAll('/6/','/1/').replaceAll('previews-6','previews-1').replaceAll('panel_id=6','panel_id=1')}</main>`;
+  const dom=await environment().tab(html,markets.urls.turbosquid,false,{IntersectionObserver:VisibleObserver,fetch});t.after(()=>dom.window.close());await settle();
+  assert.equal(max,2);assert.equal(requests.length,4);assert.equal(dom.window.document.querySelectorAll('.asb-button').length,3);
+  dom.window.document.querySelector('main').append(dom.window.document.createElement('span'));await settle();assert.equal(requests.length,4);
+});
+
+test('management offers all five sites, validates additions, filters and preserves theme and legacy records',async t=>{
+  const e=environment({blocked:[{id:'123',name:'Legacy'}]},'dark'),dom=await e.tab(source('options.html'),'https://extension.test/options.html',true);t.after(()=>dom.window.close());
+  const d=dom.window.document;assert.equal(d.querySelector('#add-site').options.length,5);assert.equal(d.querySelector('#site-filter').options.length,6);
+  for(const site of ['cgtrader','fab','turbosquid']){
+    d.getElementById('add-site').value=site;d.getElementById('add-site').dispatchEvent(new dom.window.Event('change'));
+    assert.ok(d.getElementById('publisher').placeholder.includes(site==='turbosquid'?'Artists':site==='fab'?'sellers':'designers'));
+    d.getElementById('publisher').value=e.ASB.sellerUrl({site,id:'sample-seller'});d.getElementById('add').dispatchEvent(new dom.window.Event('submit',{cancelable:true}));await settle();
+    d.getElementById('site-filter').value=site;d.getElementById('site-filter').dispatchEvent(new dom.window.Event('change'));assert.equal(d.querySelectorAll('#list li').length,1);assert.ok(d.getElementById('clear').textContent.includes(e.ASB.sites[site]));
+  }
+  assert.equal(e.stored().blocked.length,4);assert.equal(e.theme(),'dark');
+});
 
 // A shared, asynchronous chrome.storage + actual background.js across multiple DOM tabs.
 function environment(initial, initialTheme) {
@@ -47,8 +120,8 @@ function environment(initial, initialTheme) {
       else {
         dom.navigations=[];dom.backCount=0;
         const location=Object.assign(new URL(url),{replace:target=>dom.navigations.push(target)});
-        const context=vm.createContext({document:dom.window.document,window:dom.window,location,history:{length:appearance.historyLength ?? 1,back(){dom.backCount++;}},MutationObserver:dom.window.MutationObserver,chrome,URL,console,setTimeout:dom.window.setTimeout.bind(dom.window),clearTimeout:dom.window.clearTimeout.bind(dom.window)});
-        for(const file of ['shared.js','adapters/unity.js','adapters/booth.js','effects.js','content.js'])vm.runInContext(source(file),context);
+        const context=vm.createContext({document:dom.window.document,window:dom.window,location,history:{length:appearance.historyLength ?? 1,back(){dom.backCount++;}},MutationObserver:dom.window.MutationObserver,DOMParser:dom.window.DOMParser,AbortController,IntersectionObserver:appearance.IntersectionObserver,fetch:appearance.fetch,chrome,URL,console,setTimeout:dom.window.setTimeout.bind(dom.window),clearTimeout:dom.window.clearTimeout.bind(dom.window)});
+        for(const file of JSON.parse(source('manifest.json')).content_scripts[0].js)vm.runInContext(source(file),context);
       }
       await settle();return dom;
     }

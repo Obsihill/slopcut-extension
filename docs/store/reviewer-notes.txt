@@ -1,4 +1,4 @@
-SlopCut / 딸깍컷 1.5.0 — certification notes
+SlopCut / 딸깍컷 1.6.0 — certification notes
 
 No extension account, subscription, payment, test credentials, or developer server is required. Public marketplace pages can be used.
 
@@ -18,3 +18,9 @@ Click effects intentionally play even when OS reduced motion is enabled, followi
 The extension only hides local display elements: no marketplace account action, purchase, report, AI classification, or moderation request occurs. Result counts/page numbers remain the website's values. Custom BOOTH themes and site markup changes may affect compatibility.
 
 Management screenshots use clearly labeled sample records; the dust screenshot uses sample product cards. The Unity and BOOTH button screenshots are cropped captures of the real pages. Third-party product imagery is incidental to explaining the extension and does not imply endorsement or an adverse evaluation of a seller.
+
+1.6.0 additional site checks:
+- https://www.cgtrader.com/search?keywords=chair: card itemBrand metadata supplies the generated seller row. Product details use the Created by seller label.
+- https://www.fab.com/search?q=chair: seller links on cards and the main detail-page badge have adjacent buttons. Client-side navigation and new cards are observed.
+- https://www.turbosquid.com/Search/3D-Models/chair: public quick-preview HTML supplies seller labels for nearby cards, with two concurrent same-origin requests at most. Scroll for more cards. Failed or blocked previews show no fabricated seller control.
+- Browser permission updates cover only these three additional marketplace domains (www and apex). No new API permissions.

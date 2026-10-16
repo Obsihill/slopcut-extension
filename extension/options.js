@@ -4,6 +4,14 @@ const pageTitle = chrome.i18n?.getMessage('optionsTitle') || '딸깍컷 - 차단
 document.title = pageTitle;
 $('brand-title').textContent = pageTitle;
 let state = ASB.defaults();
+for (const [site,name] of Object.entries(ASB.sites)) {
+  const label = document.createElement('label'), input = document.createElement('input'), count = document.createElement('span');
+  input.type='checkbox'; input.id=`enabled-${site}`; count.id=`count-${site}`; count.className='muted';
+  label.append(input,document.createTextNode(name+' '),count); $('site-controls').append(label);
+  for (const id of ['add-site','site-filter']) {
+    const option=document.createElement('option'); option.value=site; option.textContent=name; $(id).append(option);
+  }
+}
 if (globalThis.SlopCutTheme) {
   SlopCutTheme.ready.then(() => { $('theme').value = SlopCutTheme.preference; });
   $('theme').onchange = async () => {
@@ -41,16 +49,16 @@ function render() {
     record.append(link,meta); li.append(record,remove); $('list').append(li);
   }
   $('clear').disabled = !state.blocked.some(e => !site || e.site === site);
-  $('clear').textContent = site ? `${site === 'booth' ? 'BOOTH' : 'Unity'} 전체 해제` : '전체 해제';
+  $('clear').textContent = site ? `${ASB.sites[site]} 전체 해제` : '전체 해제';
 }
 $('add').onsubmit = async e => {
   e.preventDefault(); const site = $('add-site').value, id = ASB.sellerId(site, $('publisher').value);
-  if (!id) {message('선택한 사이트의 판매자 URL 또는 ID를 입력하세요. BOOTH는 상점 URL 또는 서브도메인입니다.',true);return;}
+  if (!id) {message('선택한 사이트의 올바른 판매자 URL 또는 ID를 입력하세요.',true);return;}
   if (await change('block',{publisher:{site,id,name:$('name').value.trim()}},'판매자를 차단했습니다. 열린 스토어 페이지에도 바로 반영됩니다.')) {
     $('publisher').value=''; $('name').value='';
   }
 };
-$('add-site').onchange = () => { $('publisher').placeholder = $('add-site').value === 'booth' ? 'https://상점명.booth.pm/ 또는 상점명' : 'https://assetstore.unity.com/publishers/12345'; };
+$('add-site').onchange = () => { $('publisher').placeholder = ASB.placeholders[$('add-site').value]; };
 $('enabled').onchange = async () => {await change('enabled',{enabled:$('enabled').checked},'숨김 설정을 변경했습니다.'); render();};
 $('search').oninput=render;
 $('site-filter').onchange=render;

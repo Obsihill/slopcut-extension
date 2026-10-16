@@ -3,7 +3,7 @@
     "message": "딸깍컷"
   },
   "extensionDescription": {
-    "message": "Unity 에셋스토어와 BOOTH에서 판매자 이름 옆에 차단 버튼을 표시하고 차단한 판매자의 상품을 숨깁니다."
+    "message": "지원 마켓플레이스에서 판매자 이름 옆에 차단 버튼을 표시하고 선택한 판매자의 상품을 숨깁니다. 차단 목록은 브라우저에서 관리합니다."
   },
   "actionTitle": {
     "message": "딸깍컷 · 차단 목록 관리"

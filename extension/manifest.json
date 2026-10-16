@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "__MSG_extensionDescription__",
   "permissions": [
     "storage"
@@ -29,12 +29,22 @@
       "matches": [
         "https://assetstore.unity.com/*",
         "https://booth.pm/*",
-        "https://*.booth.pm/*"
+        "https://*.booth.pm/*",
+        "https://www.cgtrader.com/*",
+        "https://cgtrader.com/*",
+        "https://www.fab.com/*",
+        "https://fab.com/*",
+        "https://www.turbosquid.com/*",
+        "https://turbosquid.com/*"
       ],
       "js": [
         "shared.js",
         "adapters/unity.js",
         "adapters/booth.js",
+        "adapters/dom.js",
+        "adapters/cgtrader.js",
+        "adapters/fab.js",
+        "adapters/turbosquid.js",
         "effects.js",
         "content.js"
       ],

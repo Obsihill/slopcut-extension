@@ -7,6 +7,6 @@
 상품 노출은 확장 기능의 예시이며 특정 판매자에 대한 평가나 차단 권고가 아닙니다.
 
 03-management-light.png / 04-management-dark.png: 배포용 options.html을 격리된 Edge에서 렌더링했습니다.
-표시된 Sample Publisher / 샘플 상점은 가상 데이터이며 실제 사용자 목록을 사용하지 않았습니다.
+표시된 Sample Publisher / 샘플 상점 / Sample Artist / Sample Seller / Sample Studio는 가상 데이터이며 실제 사용자 목록을 사용하지 않았습니다. 1.6.0의 다섯 사이트 설정을 표시합니다.
 05-dust-demo.png와 docs/assets/animation.gif: 실제 effects.js를 예시 카드에 적용한 시연입니다. 실제 사이트 캡처가 아닙니다.
 모든 제출용 PNG는 1280×800입니다. 위 캡션은 확장 프로그램의 사이트 내 UI가 아닙니다.

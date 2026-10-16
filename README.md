@@ -5,7 +5,7 @@
 보기 싫은 판매자, 딸깍 한 번으로 컷.
 
 판매자 이름 옆 **차단**을 누르면 그 판매자의 상품이 사라집니다.
-현재 지원: **Unity Asset Store · BOOTH**  
+현재 지원: **Unity Asset Store · BOOTH · CGTrader · Fab · TurboSquid**<br>
 지원 사이트는 확장 중…
 
 ### 차단 목록 관리
@@ -16,7 +16,7 @@
 
 ### 설치
 
-Edge 스토어 등록 준비 중입니다. 지금은 직접 설치할 수 있습니다.
+Edge 스토어 심사 중입니다. 지금은 직접 설치할 수 있습니다.
 
 1. [소스 ZIP](https://github.com/Obsihill/slopcut-extension/archive/refs/heads/main.zip)을 받아 압축을 풉니다.
 2. `edge://extensions`에서 **개발자 모드**를 켭니다.

@@ -1,9 +1,9 @@
 {
   "name": "slopcut-extension",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "license": "MIT",
-  "description": "Seller filtering for Unity Asset Store and BOOTH.",
+  "description": "Seller filtering for Unity Asset Store, BOOTH, CGTrader, Fab and TurboSquid.",
   "engines": {
     "node": ">=22.13.0"
   },

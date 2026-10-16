@@ -22,6 +22,7 @@
   function scan() {
     observer?.disconnect();
     try {
+      adapter.discover?.(document);
       const blocked = new Set(state.blocked.map(ASB.key));
       for (const el of document.querySelectorAll('[data-asb-hidden]')) el.removeAttribute('data-asb-hidden');
       for (const [a,b] of buttons) {
@@ -60,7 +61,7 @@
           b.disabled = true;
           try {
             state = await ASB.request('block', {publisher:current});
-            const targets = detail ? [a.closest('main,[role="main"]') || document.querySelector('main,[role="main"]')] : sellerCards(key);
+            const targets = detail ? [adapter.detailTarget?.(a) || a.closest('main,[role="main"]') || document.querySelector('main,[role="main"]')] : sellerCards(key);
             const valid = () => isEnabled() && location.href === pageUrl && state.blocked.some(item => ASB.key(item) === key);
             let committed = false;
             const commit = () => {
@@ -88,7 +89,7 @@
         if (blocked.has(ASB.key(item)) && !activeSellers.has(ASB.key(item))) card.setAttribute('data-asb-hidden','true');
       }
     } finally {
-      observer?.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['href'],characterData:true});
+      observer?.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['href','data-attributes','data-search-result-turbo-frame-src-value'],characterData:true});
     }
   }
   function schedule() { clearTimeout(timer); timer = setTimeout(scan,120); }

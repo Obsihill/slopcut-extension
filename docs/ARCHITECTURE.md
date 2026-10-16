@@ -14,12 +14,14 @@ background.js
   저장소 변경의 단일 진입점. 여러 탭의 차단·해제 요청을 큐로 직렬화.
   읽기 → 수정 → 저장 사이에 다른 탭의 변경을 덮어쓰지 않음.
 
-adapters/unity.js, adapters/booth.js
+adapters/unity.js, booth.js, cgtrader.js, fab.js, turbosquid.js
   사이트별 DOM 지식만 담당.
   matches(location): 적용할 도메인·페이지 판별.
   isDetail(location), home: 차단 후 상세 페이지에서 나가기 위한 판별과 기본 이동 주소.
   selector: 판매자 이름 링크의 선택자.
   publisher(anchor): {site,id,name} 또는 null.
+  discover(document): 누락된 카드 판매자 행 보충(선택). CGTrader itemBrand, TurboSquid 공개 미리보기.
+  detailTarget(anchor): main이 없는 상세 페이지의 애니메이션 영역(선택).
   prepare(anchor): 판매자 이름 오른쪽의 버튼 배치를 위한 레이아웃 보정.
   cardFor(anchor): 숨길 상품 카드 전체 또는 null(상세 본문 유지).
   extraCards(document): 판매자 이름이 없는 상점 테마의 상품 카드 식별(선택).
@@ -52,7 +54,10 @@ theme.js
 1. shared.js에 사이트 이름, ID 검증 규칙, 판매자 URL 생성 규칙을 추가.
 2. adapters/새사이트.js를 작성하고 ASBAdapters 배열에 등록.
 3. manifest.json에 해당 사이트 match와 어댑터 스크립트 추가.
-4. 관리 화면에 해당 사이트 선택 항목/활성화 항목 추가.
+4. 관리 화면은 shared.js 사이트 정의에서 선택/활성화 항목을 자동 생성.
+TurboSquid 미리보기는 같은 출처의 숫자 ID /previews 경로만 허용하며 HTML을 비활성 문서로 파싱.
+IntersectionObserver로 화면 가까운 카드만 읽고 동시 요청 2개, 8초 제한, 페이지 내 결과 재사용.
+사이트의 계정·결제 화면에서는 어댑터를 실행하지 않음.
 공통 차단·숨김 엔진과 저장 메시지 처리 코드는 그대로 사용.
 
 버전 호환

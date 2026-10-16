@@ -1,10 +1,10 @@
-Partner Center privacy answers — SlopCut 1.5.0
+Partner Center privacy answers — SlopCut 1.6.0
 
 Single purpose (English)
-Hide product listings from sellers explicitly chosen by the user on Unity Asset Store and BOOTH, with a local list for managing those choices.
+Hide product listings from sellers explicitly chosen by the user on Unity Asset Store, BOOTH, CGTrader, Fab and TurboSquid, with a local list for managing those choices.
 
 단일 목적 (한국어)
-사용자가 Unity 에셋스토어와 BOOTH에서 선택한 판매자의 상품을 숨기고 그 선택을 로컬 목록에서 관리합니다.
+사용자가 Unity 에셋스토어, BOOTH, CGTrader, Fab, TurboSquid에서 선택한 판매자의 상품을 숨기고 그 선택을 로컬 목록에서 관리합니다.
 
 storage permission justification
 Store the user's selected seller site, seller ID, display name, time added, global/site hiding preferences, and theme preference in the current browser profile. No developer server receives these values.
@@ -13,6 +13,9 @@ Content-script site access justification
 https://assetstore.unity.com/* : identify publisher links and product cards, insert a user-operated Block button, and hide cards matching the local blocked list.
 https://booth.pm/* : the same functionality for BOOTH marketplace listings and product detail pages.
 https://*.booth.pm/* : identify BOOTH shop subdomains and compatible custom shop product cards. Runtime adapters exclude account, checkout, admin and conversation screens.
+https://www.cgtrader.com/* and https://cgtrader.com/* : read seller profile links and card itemBrand metadata.
+https://www.fab.com/* and https://fab.com/* : read seller labels on product cards and main detail-page seller badges.
+https://www.turbosquid.com/* and https://turbosquid.com/* : read seller links and request same-origin public card previews near the viewport when cards lack seller metadata.
 There is no separate host_permissions entry, activeTab, scripting, cookies, history, webRequest or downloads API permission. Site access is declared by static content-script matches.
 
 Remote code
@@ -23,7 +26,7 @@ No user data is transmitted to or collected by the developer or third parties th
 If the current dashboard distinguishes local access/processing from developer collection, disclose local seller IDs/display names and preferences consistently with the policy rather than blindly copying a checkbox answer.
 
 Not accessed for extension functionality
-Marketplace credentials, cookies, payment details, purchase history, or full browsing history. The extension reads supported page DOM elements to identify seller labels and product-card boundaries.
+Marketplace credentials, cookies, payment details, purchase history, or full browsing history. The extension reads supported page DOM elements to identify seller labels and product-card boundaries. TurboSquid public previews use normal same-origin requests; cookie values are not read or stored.
 
 Privacy policy URL
-Publish docs/privacy.html through GitHub Pages (source: main /docs). The final URL requires the repository owner; run scripts/configure-publication.py first and verify the public URL is reachable before submission.
+https://obsihill.github.io/slopcut-extension/privacy.html (GitHub Pages: main /docs). Verify reachability before submitting a store update.

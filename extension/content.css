@@ -1,5 +1,11 @@
 .asb-publisher-row { display: flex !important; align-items: center !important; gap: 6px !important; overflow: visible !important; }
 .asb-publisher-row > a { flex: 0 1 auto; min-width: 0; }
+.asb-seller-row { display:flex !important; align-items:center !important; gap:4px !important; padding:3px 6px !important; font:12px/20px Tahoma,Arial,sans-serif !important; position:relative !important; z-index:21 !important; }
+.asb-seller-row > a { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+.asb-fab-info { display:flex !important; flex-direction:row !important; flex-wrap:wrap !important; gap:2px 0 !important; align-items:center !important; }
+.asb-fab-info > * { flex:0 0 100%; min-width:0; }
+.asb-fab-info > .asb-fab-seller { flex:0 1 auto !important; max-width:calc(100% - 48px); }
+.asb-fab-info > .asb-button { flex:0 0 auto !important; }
 .asb-publisher-row.item-card__shop-info { width: 100%; }
 .asb-publisher-row .item-card__shop-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .asb-publisher-row > a.item-card__shop-name-anchor { overflow: hidden; }

@@ -4,7 +4,39 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {chromium} = require('playwright');
 const root = path.resolve(__dirname,'../extension');
+const markets = require('./marketplace-fixtures.cjs');
 let browser;
+for (const site of ['cgtrader','fab','turbosquid']) {
+  for (const detail of [false,true]) test(`${site} browser: ${detail?'detail animates then returns':'same-seller cards dissolve and grid fills without navigation'}`,async t=>{
+    const context=await browser.newContext({viewport:{width:1100,height:700}});t.after(()=>context.close());
+    const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));t.after(()=>assert.deepEqual(errors,[]));
+    await page.route('**/*',route=>{
+      if(new URL(route.request().url()).pathname.endsWith('/previews'))return route.fulfill({contentType:'text/html',body:markets.preview(route.request().url().includes('/2/')?'other-seller':'sample-seller')});
+      return route.fulfill({contentType:'text/html',body:`<!doctype html><html><head><style>body{margin:20px;font:14px Arial}#results{display:grid;grid-template-columns:repeat(3,240px);gap:14px}#results>div{border:1px solid gray;background:#eee}img{width:240px;height:150px}.fabkit-Stack--column{display:flex;flex-direction:column}main>img{width:400px;height:250px}</style></head><body>${detail?markets.detail(site):`<main><h1>Results</h1><div id="results">${markets.card(site)}${markets.card(site,'other-seller',2)}${markets.card(site,'sample-seller',3)}</div></main>`}</body></html>`});
+    });
+    await page.goto(detail?markets.details[site]:markets.urls[site]);
+    await page.evaluate(()=>{
+      const listeners=[];window.__state={blocked:[],enabled:true,sitesEnabled:{cgtrader:true,fab:true,turbosquid:true}};window.__back=0;
+      history.pushState({},'',location.href);history.back=()=>window.__back++;
+      window.chrome={storage:{local:{get:async()=>({state:window.__state})},onChanged:{addListener:f=>listeners.push(f)}},runtime:{sendMessage:async m=>{
+        window.__state={...window.__state,blocked:[...window.__state.blocked,m.publisher]};listeners.forEach(f=>f({state:{newValue:window.__state}},'local'));return {ok:true,state:window.__state};
+      }}};
+    });
+    await page.addStyleTag({path:path.join(root,'content.css')});
+    for(const file of JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8')).content_scripts[0].js)await page.addScriptTag({path:path.join(root,file)});
+    const selector=detail?'main > div > .asb-button':'#card-1 .asb-button';await page.waitForSelector(selector);
+    if(!detail)await page.waitForSelector('#card-3 .asb-button');
+    const neighbor=detail?null:await page.locator('#card-2').boundingBox();
+    const label=await page.locator(selector).getAttribute('data-seller');assert.equal(label,`${site}:sample-seller`);
+    await page.locator(selector).click();await page.waitForSelector('[data-asb-dissolving]');
+    assert.equal(await page.evaluate(()=>window.__back),0);assert.equal(await page.locator('[data-asb-dissolving]').count(),detail?1:2);
+    await page.waitForTimeout(220);assert.ok(await page.locator('[data-asb-dissolving]').first().evaluate(e=>e.style.maskImage.startsWith('url(')));
+    await page.waitForFunction(()=>!document.querySelector('.asb-dust'));
+    if(detail)assert.equal(await page.evaluate(()=>window.__back),1);
+    else {await page.waitForTimeout(280);assert.equal(await page.locator('[data-asb-hidden]').count(),2);assert.ok((await page.locator('#card-2').boundingBox()).x<neighbor.x);assert.equal(page.url(),markets.urls[site]);}
+    assert.equal(await page.locator('[data-asb-dissolving]').count(),0);
+  });
+}
 before(async()=>{browser = await chromium.launch({...(process.env.BROWSER_CHANNEL ? {channel:process.env.BROWSER_CHANNEL} : {}),headless:true});});
 after(async()=>{await browser?.close();});
 const picture = 'data:image/svg+xml;base64,' + Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="230" height="160"><rect width="230" height="160" fill="#788b6e"/><path d="M0 160L80 45l60 65 35-40 55 90" fill="#b7c6ac"/><circle cx="180" cy="35" r="17" fill="#ebe3b5"/></svg>').toString('base64');
@@ -28,7 +60,7 @@ async function fixture(t, {reduced=false,detail=false,fail=false,initial=false}=
     }}};
   },{fail,initial});
   await page.addStyleTag({path:path.join(root,'content.css')});
-  for(const file of ['shared.js','adapters/unity.js','adapters/booth.js','effects.js','content.js'])await page.addScriptTag({path:path.join(root,file)});
+  for(const file of JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8')).content_scripts[0].js)await page.addScriptTag({path:path.join(root,file)});
   await page.waitForFunction(()=>document.querySelector('.asb-button'));
   return page;
 }

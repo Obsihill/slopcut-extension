@@ -1,6 +1,6 @@
 # SlopCut (딸깍컷)
 
-Hide products from sellers you choose on Unity Asset Store and BOOTH.
+Hide products from sellers you choose on Unity Asset Store, BOOTH, CGTrader, Fab and TurboSquid.
 Click the small button beside a seller name; matching product cards dissolve into dark dust and the remaining cards move into place without reloading the listing.
 
 The extension name is localized to 딸깍컷 in Korean and SlopCut otherwise. The settings interface, status messages, and injected buttons currently use Korean.
@@ -14,5 +14,5 @@ Back up your list before switching from an unpacked install to a store install.
 
 See the [main README](../README.md), [privacy policy](privacy.html), and [submission materials](store/SUBMISSION.md).
 
-Store publication is being prepared. No store link or publication status is claimed yet.
+Version 1.5.0 is under Edge Add-ons review. Version 1.6.0 adds three marketplaces; the GitHub source is available for a development install.
 Published by SlopCut under the [MIT license](../LICENSE).

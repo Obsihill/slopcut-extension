@@ -2,12 +2,13 @@ Extension name
 SlopCut
 
 Short description — matches the en manifest message
-Hide products from sellers you choose on Unity Asset Store and BOOTH. Block sellers beside their names and manage your list locally.
+Hide products from sellers you choose on supported marketplaces. Block beside seller names and manage your list locally.
+
 
 Detailed description
 Keep marketplace listings focused on sellers you want to see.
 
-SlopCut adds a small blocking button beside seller names on Unity Asset Store and BOOTH. Clicking it hides matching product cards in your browser. It does not modify your marketplace account, submit reports, or block a seller through the marketplace's own account system.
+SlopCut adds a small blocking button beside seller names on Unity Asset Store, BOOTH, CGTrader, Fab and TurboSquid. Clicking it hides matching product cards in your browser. It does not modify your marketplace account, submit reports, or block a seller through the marketplace's own account system.
 
 Features
 • Block sellers from listing cards and supported product detail pages.
@@ -21,9 +22,11 @@ Your list and settings stay in the current browser profile. The extension has no
 
 The name is displayed as 딸깍컷 in Korean and SlopCut otherwise. The management interface, button labels, and status messages currently use Korean; the blocking button is labeled 차단.
 
+TurboSquid seller labels are read from public quick previews for cards near the viewport. If the website blocks those requests, a label may be delayed or unavailable.
+
 Please note: SlopCut does not detect or classify AI-generated content. Only sellers you select are hidden. Marketplace result counts and page numbers are unchanged. Compatibility can vary with page redesigns and custom BOOTH shop themes. Blocking the main seller on a detail page returns to the previous page after the effect, or the marketplace home if no previous page exists. Previously blocked products are hidden immediately. Explicitly requested effects also play when OS reduced motion is enabled.
 
-SlopCut is not affiliated with Unity, BOOTH, or Microsoft.
+SlopCut is not affiliated with these marketplaces or Microsoft.
 
 Search terms — seven terms
 seller blocker

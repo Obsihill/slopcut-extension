@@ -1,12 +1,12 @@
 # SlopCut privacy policy
 
-Prepared: October 17, 2026. Applies to SlopCut (딸깍컷) 1.5.0 for Microsoft Edge.
+Prepared: October 17, 2026. Applies to SlopCut (딸깍컷) 1.5.0–1.6.0 for Microsoft Edge.
 
 SlopCut identifies seller labels, seller links/IDs or BOOTH shop subdomains, and product-card boundaries in the DOM of supported marketplace pages. It uses these locally to place buttons and hide sellers explicitly chosen by the user. It does not classify AI content or take action on marketplace accounts.
 
 Local extension storage contains selected sellers' site, ID/subdomain, display name and time added, global/site hiding preferences, and theme preference. A localStorage theme cache is also kept on the extension's own origin; its legacy key slopblock.theme is retained for update compatibility. There is no developer-operated account service or server copy.
 
-The extension does not transmit this information to its developer or third parties, use analytics/advertising/crash-reporting SDKs, load remote executable code, or record browsing history. It does not request cookies, credentials, payment records or purchase history. The original websites retain their own independent network activity and privacy practices. Opening a seller link visits that website. Distribution and hosting platforms such as Microsoft Edge Add-ons and GitHub/GitHub Pages apply their own policies to their services.
+The extension does not transmit your blocked list or preferences to its developer or third parties, use analytics/advertising/crash-reporting SDKs, load remote executable code, or record browsing history. It does not read cookie values, credentials, payment records or purchase history. Starting in 1.6.0, TurboSquid cards without a seller label use a same-origin request to the website's public quick-preview HTML for cards near the viewport. Requests are limited to two at once and results are reused within the page. They do not include your block list, and returned scripts are not executed. Normal same-origin cookie handling applies; SlopCut does not read or store cookie values. If the site refuses a preview, a card may have no seller button. The original websites retain their own independent network activity and privacy practices. Opening a seller link visits that website. Distribution and hosting platforms such as Microsoft Edge Add-ons and GitHub/GitHub Pages apply their own policies to their services.
 
 A user-initiated JSON export contains the blocked sellers' site, ID, display name and time added, but not theme or hiding preferences. Import reads a user-selected local file and merges valid seller entries; it does not upload them. Users control backup-file storage and sharing.
 

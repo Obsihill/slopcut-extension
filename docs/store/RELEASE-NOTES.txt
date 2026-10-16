@@ -1,10 +1,9 @@
-딸깍컷 / SlopCut 1.5.0
+딸깍컷 / SlopCut 1.6.0
 
+CGTrader, Fab, TurboSquid를 추가했습니다. 판매자 이름 오른쪽에서 차단하고, 같은 판매자의 상품을 숨깁니다.
+CGTrader는 카드 메타데이터, TurboSquid는 화면 가까운 카드의 공개 빠른 보기에서 판매자 이름을 읽습니다.
+기존 Unity Asset Store·BOOTH 차단 목록과 테마를 유지합니다. 관리 화면에서도 새 사이트별 목록과 활성화를 제공합니다.
 
-공개 출시 준비 버전입니다. 한국어 이름 딸깍컷, 영문 이름 SlopCut을 적용했습니다.
-Unity Asset Store·BOOTH 판매자 차단, 검은 먼지 효과, 목록 관리와 JSON 백업, 라이트/다크 테마를 제공합니다.
-기존 SlopBlock과 차단 목록·테마 저장 형식을 공유합니다. 스토어 설치로 옮기기 전 JSON 백업을 내보내세요.
-
-This release prepares the bilingual SlopCut / 딸깍컷 brand for public distribution.
-Seller blocking, the dust effect, local list management, JSON backup/merge, and system/light/dark appearance are included.
-Settings labels remain Korean. Back up your list before switching to a different installation ID.
+Adds CGTrader, Fab and TurboSquid seller filtering. Existing blocks and theme preferences are preserved.
+TurboSquid uses bounded same-origin public preview requests to identify sellers on nearby cards.
+Settings labels remain Korean. Additional marketplace site access is required after updating.
