@@ -16,7 +16,11 @@
 
 ### 설치
 
-Edge 스토어 심사 중입니다. 지금은 직접 설치할 수 있습니다.
+[Microsoft Edge 스토어에서 설치](https://microsoftedge.microsoft.com/addons/detail/bggbknekgpfjabnipaogajdlemaijdoj)
+
+스토어에는 1.5.0이 공개되어 있습니다. CGTrader·Fab·TurboSquid를 추가한 1.6.0은 업데이트 심사 중입니다.
+
+직접 설치하려면:
 
 1. [소스 ZIP](https://github.com/Obsihill/slopcut-extension/archive/refs/heads/main.zip)을 받아 압축을 풉니다.
 2. `edge://extensions`에서 **개발자 모드**를 켭니다.

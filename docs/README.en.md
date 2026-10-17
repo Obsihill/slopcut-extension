@@ -9,10 +9,12 @@ Supported features: seller blocking, cross-tab updates, site-specific pause cont
 The extension does not classify content as AI-generated and does not submit reports or blocks to marketplace accounts.
 A block on the main seller of a product detail page returns to the previous page after the effect, or the marketplace home if there is no previous page.
 
+[Install from Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/bggbknekgpfjabnipaogajdlemaijdoj).
+
 For a development install, open `edge://extensions`, enable Developer mode, and load the repository's `extension/` folder. Refresh already-open marketplace tabs. No runtime dependencies or build step are required.
 Back up your list before switching from an unpacked install to a store install.
 
 See the [main README](../README.md), [privacy policy](privacy.html), and [submission materials](store/SUBMISSION.md).
 
-Version 1.5.0 is under Edge Add-ons review. Version 1.6.0 adds three marketplaces; the GitHub source is available for a development install.
+Version 1.5.0 is available in the store. Version 1.6.0, adding CGTrader, Fab and TurboSquid, is under update review; the GitHub source is available for a development install.
 Published by SlopCut under the [MIT license](../LICENSE).

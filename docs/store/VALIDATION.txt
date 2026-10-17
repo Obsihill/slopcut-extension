@@ -6,4 +6,4 @@ Six temporary live-test seller blocks were removed by the user; all three listin
 Metadata, localized descriptions, listing length/search limits, storage-only permissions, referenced runtime files, five 1280x800 screenshots, 300x300 logo and policy files verified.
 Public URL configuration and optional MIT activation verified in an isolated copy with fictitious publisher information.
 Installed-folder files match repository extension files; storage keys are preserved.
-ZIP integrity verified. This does not represent Microsoft review approval. The previously submitted 1.5.0 review is not replaced by preparing this 1.6.0 package.
+ZIP integrity verified. On 2026-10-17 the 1.6.0 update was submitted and Partner Center showed In review; 1.5.0 remained Live. Both localized listings, updated management screenshots, privacy justifications and certification notes were saved. This does not represent approval of 1.6.0.
