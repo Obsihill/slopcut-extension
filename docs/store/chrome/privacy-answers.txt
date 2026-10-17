@@ -1,0 +1,21 @@
+SlopCut 1.6.0 — Chrome Web Store
+
+Single purpose
+Hide products from sellers chosen by the user on Unity Asset Store, BOOTH, CGTrader, Fab and TurboSquid. Manage the choices locally in the browser.
+
+storage justification
+Store chosen seller site, ID, display name, time added, hiding settings and theme in the current browser profile. No developer server receives these values.
+
+Host access justification
+Static content scripts on the five supported marketplaces identify seller labels/IDs and product cards, add a user-operated block button and hide matching cards. BOOTH shop subdomains identify shop sellers. CGTrader uses public card itemBrand metadata. TurboSquid reads public same-origin preview HTML near the viewport, with at most two simultaneous requests and page-local caching. Returned scripts are not executed and no cookie values are read or stored. Account and checkout areas are excluded by runtime adapters. There is no separate host_permissions entry or additional API permission.
+
+Remote code
+No. Executable scripts, CSS and icon assets are packaged. No eval, CDN scripts, remotely loaded JS or Wasm. Public preview HTML is parsed only to extract validated seller links and names.
+
+User data disclosure
+Website content: seller display names, profile links/IDs and product card boundaries, processed locally for filtering. Saved choices and settings remain in the browser. No developer analytics, advertising or server-side collection. No credentials, purchase/payment history, health data, location, personal communications or full browsing history are accessed. Do not describe local page processing as handling no data. Inspect current dashboard wording before selecting the matching disclosure.
+
+Privacy policy
+https://obsihill.github.io/slopcut-extension/privacy.html
+
+The local processing, TurboSquid requests, retention/deletion and Limited Use practices are described in the public policy. Lists are independent across browser profiles and stores. Export/import is user-initiated local JSON only.
