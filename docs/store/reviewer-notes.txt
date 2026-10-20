@@ -1,4 +1,4 @@
-SlopCut / 딸깍컷 1.6.0 — certification notes
+SlopCut / 딸깍컷 1.6.1 — certification notes
 
 No extension account, subscription, payment, test credentials, or developer server is required. Public marketplace pages can be used.
 
@@ -24,3 +24,8 @@ Management screenshots use clearly labeled sample records; the dust screenshot u
 - https://www.fab.com/search?q=chair: seller links on cards and the main detail-page badge have adjacent buttons. Client-side navigation and new cards are observed.
 - https://www.turbosquid.com/Search/3D-Models/chair: public quick-preview HTML supplies seller labels for nearby cards, with two concurrent same-origin requests at most. Scroll for more cards. Failed or blocked previews show no fabricated seller control.
 - Browser permission updates cover only these three additional marketplace domains (www and apex). No new API permissions.
+
+1.6.1 BOOTH compatibility fix:
+- On https://booth.pm/ko, the recommendation grid now uses React .item-card-wrapper cells. Seller buttons appear beside shop names and matching complete cells dissolve and hide without reloading.
+- Legacy search cards, main detail seller and shop themes remain supported. Recommendation-card blocks on detail pages do not navigate back.
+- No additional permissions, data access, remote code or storage schema changes.

@@ -1,6 +1,6 @@
 # SlopCut privacy policy
 
-Prepared: October 17, 2026. Applies to SlopCut (딸깍컷) 1.5.0–1.6.0 for Microsoft Edge and 1.6.0 for Google Chrome.
+Prepared: October 17, 2026. Applies to SlopCut (딸깍컷) 1.5.0–1.6.1 for Microsoft Edge and 1.6.0–1.6.1 for Google Chrome.
 
 SlopCut identifies seller labels, seller links/IDs or BOOTH shop subdomains, and product-card boundaries in the DOM of supported marketplace pages. It uses these locally to place buttons and hide sellers explicitly chosen by the user. It does not classify AI content or take action on marketplace accounts.
 

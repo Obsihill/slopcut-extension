@@ -1,6 +1,6 @@
 # 딸깍컷 / SlopCut 개인정보처리방침
 
-작성일: 2026년 10월 17일 · 적용 대상: Microsoft Edge용 딸깍컷 / SlopCut 1.5.0–1.6.0 및 Google Chrome용 1.6.0
+작성일: 2026년 10월 17일 · 적용 대상: Microsoft Edge용 딸깍컷 / SlopCut 1.5.0–1.6.1 및 Google Chrome용 1.6.0–1.6.1
 
 ## 1. 목적과 처리 위치
 

@@ -1,14 +1,14 @@
 # Edge 제출 안내
 
-제출 버전: 1.6.0 · 이름: 한국어 딸깍컷 / 영어 SlopCut · 저장소: slopcut-extension
+제출 버전: 1.6.1 · 이름: 한국어 딸깍컷 / 영어 SlopCut · 저장소: slopcut-extension
 
-2026-10-17: 1.6.0 업데이트를 제출했고 Partner Center에서 **In review**를 확인했습니다. 기존 1.5.0은 **Live**로 계속 공개되어 있습니다.
+2026-10-20: BOOTH 추천 카드 호환 수정 1.6.1을 제출했고 **In review**를 확인했습니다. 기존 1.6.0은 **Live**입니다.
 
 [Edge 스토어 설치](https://microsoftedge.microsoft.com/addons/detail/bggbknekgpfjabnipaogajdlemaijdoj)
 
 ## 파일 선택
 
-- `dist/SlopCut-1.6.0-edge.zip`: Edge에 업로드할 확장 패키지. ZIP 최상위에 manifest.json이 있습니다.
+- `dist/SlopCut-1.6.1-edge.zip`: Edge에 업로드할 확장 패키지. ZIP 최상위에 manifest.json이 있습니다.
 - `ko-KR.txt`, `en-US.txt`: 각 언어의 상세 소개, 짧은 설명, 검색어.
 - `privacy-answers.txt`: 단일 목적, 권한, 원격 코드, 데이터 처리 설명.
 - `reviewer-notes.txt`: 심사자용 재현 절차.
@@ -31,7 +31,7 @@ GitHub Pages는 main /docs에서 공개되며, 업데이트를 제출할 때도 
 ## 진행 순서
 
 1. slopcut-extension 저장소에 이 폴더의 내용물을 올립니다. 기존 로컬 설치 폴더는 유지합니다.
-2. 필요 시 Releases에 `SlopCut-1.6.0-edge.zip`을 첨부합니다. 자동으로 스토어 설치 파일이 되는 것은 아닙니다.
+2. 필요 시 Releases에 `SlopCut-1.6.1-edge.zip`을 첨부합니다. 자동으로 스토어 설치 파일이 되는 것은 아닙니다.
 3. 저장소 Settings → Pages에서 main /docs를 소스로 지정합니다.
 4. 공개된 개인정보처리방침 URL을 로그아웃 상태에서도 열 수 있는지 확인합니다.
 5. Edge Partner Center의 기존 SlopCut에서 Update를 선택하고 확장 ZIP을 업로드합니다.
@@ -40,7 +40,7 @@ GitHub Pages는 main /docs에서 공개되며, 업데이트를 제출할 때도 
 8. 개인정보 항목에 실제 처리 방식과 일치하는 답변 및 공개된 개인정보처리방침 URL을 입력합니다.
 9. 심사 메모 입력란의 2,000자 제한에 맞춰 reviewer-notes.txt의 변경 사항과 검증 절차를 요약하고, 제출 내용을 검토한 뒤 제출합니다.
 
-1.6.0은 제출 완료 상태이며 심사 결과를 기다립니다. 승인을 의미하지는 않습니다.
+1.6.1 업데이트는 심사 중입니다. 승인 또는 공개를 의미하지 않습니다.
 스토어 설치는 개발용 설치와 ID가 다를 수 있으므로 기존 차단 목록을 먼저 JSON으로 내보내세요.
 
 ## 공식 문서 확인 기준 (2026-10-17)

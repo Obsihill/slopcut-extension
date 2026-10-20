@@ -9,6 +9,8 @@
 .asb-publisher-row.item-card__shop-info { width: 100%; }
 .asb-publisher-row .item-card__shop-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .asb-publisher-row > a.item-card__shop-name-anchor { overflow: hidden; }
+.asb-booth-seller { display: inline-flex !important; max-width: calc(100% - 52px); vertical-align: middle; }
+.asb-booth-seller > div { min-width: 0; max-width: 100%; }
 .asb-button { position: relative !important; z-index: 20 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex: 0 0 auto !important; vertical-align: middle !important; appearance: none !important; margin: 0 0 0 6px !important; padding: 1px 6px !important; min-height: 20px !important; border: 1px solid !important; border-color: #fff #808080 #808080 #fff !important; border-radius: 0 !important; box-shadow: 1px 1px 0 #aca899 !important; background: #ece9d8 !important; color: #000 !important; font: 11px/16px Tahoma,"굴림",Gulim,sans-serif !important; letter-spacing: normal !important; white-space: nowrap !important; cursor: pointer !important; text-decoration: none !important; }
 .asb-button:hover:not(:disabled) { outline: 1px solid #7a98c2 !important; outline-offset: -3px !important; }
 .asb-button:active:not(:disabled) { border-color: #808080 #fff #fff #808080 !important; box-shadow: none !important; }

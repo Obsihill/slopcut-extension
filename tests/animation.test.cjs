@@ -5,7 +5,33 @@ const path = require('node:path');
 const {chromium} = require('playwright');
 const root = path.resolve(__dirname,'../extension');
 const markets = require('./marketplace-fixtures.cjs');
+const modernBoothCard = require('./booth-fixtures.cjs').card;
 let browser;
+test('BOOTH React cards keep seller buttons beside names and dissolve complete grid cells without navigation',async t=>{
+  const context=await browser.newContext({viewport:{width:1100,height:700}});t.after(()=>context.close());
+  const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));t.after(()=>assert.deepEqual(errors,[]));
+  await page.route('**/*',route=>route.fulfill({contentType:'text/html',body:`<!doctype html><style>body{margin:20px;font:14px Arial}#results{display:grid;grid-template-columns:repeat(3,230px);gap:14px}.item-card-wrapper{background:#eee;border:1px solid gray}.flex{display:flex}.items-center{align-items:center}a{color:#333}img{background:#789}</style><main><h1>Recommendations</h1><div id="results">${modernBoothCard('sample-shop',1)}${modernBoothCard('other-shop',2)}${modernBoothCard('sample-shop',3)}</div></main>`}));
+  await page.goto('https://booth.pm/ko');
+  await page.evaluate(()=>{
+    const listeners=[];window.__state={version:2,blocked:[],enabled:true,sitesEnabled:{booth:true}};
+    window.chrome={storage:{local:{get:async()=>({state:window.__state})},onChanged:{addListener:f=>listeners.push(f)}},runtime:{sendMessage:async m=>{
+      window.__state={...window.__state,blocked:[m.publisher]};listeners.forEach(f=>f({state:{newValue:window.__state}},'local'));return {ok:true,state:window.__state};
+    }}};
+  });
+  await page.addStyleTag({path:path.join(root,'content.css')});
+  for(const file of JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8')).content_scripts[0].js)await page.addScriptTag({path:path.join(root,file)});
+  await page.waitForSelector('#modern-3 .asb-button');
+  const button=page.locator('#modern-1 .asb-button'),seller=page.locator('#modern-1 .asb-booth-seller');
+  for(const width of [1100,440]){
+    await page.setViewportSize({width,height:700});
+    const a=await seller.boundingBox(),b=await button.boundingBox();assert.ok(b.x>=a.x+a.width-1);assert.ok(Math.abs(b.y+b.height/2-a.y-a.height/2)<3);
+  }
+  await page.setViewportSize({width:1100,height:700});
+  const before=await page.locator('#modern-2').boundingBox();
+  await button.click();await page.waitForSelector('[data-asb-dissolving]');assert.equal(await page.locator('.item-card-wrapper[data-asb-dissolving]').count(),2);
+  await page.waitForFunction(()=>document.querySelectorAll('.item-card-wrapper[data-asb-hidden]').length===2);
+  await page.waitForTimeout(300);assert.ok((await page.locator('#modern-2').boundingBox()).x<before.x);assert.equal(page.url(),'https://booth.pm/ko');assert.equal(await page.locator('#results').isVisible(),true);
+});
 for (const site of ['cgtrader','fab','turbosquid']) {
   for (const detail of [false,true]) test(`${site} browser: ${detail?'detail animates then returns':'same-seller cards dissolve and grid fills without navigation'}`,async t=>{
     const context=await browser.newContext({viewport:{width:1100,height:700}});t.after(()=>context.close());

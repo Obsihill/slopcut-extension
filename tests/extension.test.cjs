@@ -129,6 +129,24 @@ function environment(initial, initialTheme) {
 }
 const boothCard = (seller,id=1) => `<li class="item-card l-card"><div class="item-card__wrap" id="item_${id}"><a href="https://booth.pm/ko/items/${id}"><img alt="product"></a><div class="item-card__shop-info"><a class="item-card__shop-name-anchor nav" href="https://${seller}.booth.pm/"><div class="flex items-center"><img alt="${seller}"><div class="item-card__shop-name">${seller}</div></div></a></div></div></li>`;
 const boothDetail = `<main><div class="flex"><a data-product-list="from market_show via market_item_detail to shop_index" href="https://n0m.booth.pm/"><img alt="NØM"><span>NØM</span></a><a href="https://n0m.booth.pm/cart">cart</a></div><h2 id="product-title">Overdose</h2><div id="description"><a href="https://mio3works.booth.pm/items/4013951">other product</a><a href="https://other.booth.pm/">other store in description</a></div><ul>${boothCard('n0m',2)}</ul></main>`;
+const modernBoothCard = require('./booth-fixtures.cjs').card;
+
+test('BOOTH React recommendations and legacy cards share blocks without navigating or selecting unrelated links',async t=>{
+  const e=environment(),dom=await e.tab(`<main><div id="recommendations">${modernBoothCard('sample-shop',1)}${modernBoothCard('other-shop',2)}${modernBoothCard('sample-shop',3)}<div class="item-card-wrapper"><a href="https://accounts.booth.pm/">Account</a><a href="https://sample-shop.booth.pm/cart">Cart</a><a href="https://sample-shop.booth.pm/"><img alt="Avatar only"></a><a href="https://sample-shop.booth.pm.evil.test/">Lookalike</a></div></div><ul>${boothCard('sample-shop',4)}</ul><div id="description"><a href="https://unrelated.booth.pm/">Description shop</a></div></main>`,'https://booth.pm/ko');t.after(()=>dom.window.close());
+  const d=dom.window.document;
+  assert.equal(d.querySelectorAll('.asb-button').length,4);
+  const button=d.querySelector('#modern-1 .asb-button');assert.ok(button);assert.equal(button.previousElementSibling.tagName,'A');assert.equal(button.closest('a'),null);
+  assert.equal(d.querySelector('#description .asb-button'),null);
+  button.click();await settle();assert.equal(d.querySelectorAll('[data-asb-hidden]').length,3);assert.equal(d.getElementById('modern-1').dataset.asbHidden,'true');assert.equal(d.getElementById('modern-2').dataset.asbHidden,undefined);assert.equal(dom.backCount,0);assert.deepEqual(dom.navigations,[]);
+  d.getElementById('recommendations').insertAdjacentHTML('beforeend',modernBoothCard('sample-shop',5));await settle();assert.equal(d.getElementById('modern-5').dataset.asbHidden,'true');
+  await e.ASB.request('unblock',{site:'booth',id:'sample-shop'});await settle();assert.equal(d.querySelectorAll('[data-asb-hidden]').length,0);assert.equal(d.querySelectorAll('.asb-button').length,5);
+});
+
+test('BOOTH React recommendation on a detail page hides its card without triggering back navigation',async t=>{
+  const e=environment(),dom=await e.tab(`<main><a data-product-list="to shop_index" href="https://main-shop.booth.pm/">Main shop</a><h2>Product</h2><div>${modernBoothCard('other-shop',1)}</div></main>`,'https://booth.pm/ko/items/123',false,{historyLength:2});t.after(()=>dom.window.close());
+  dom.window.document.querySelector('#modern-1 .asb-button').click();await settle();
+  assert.equal(dom.backCount,0);assert.equal(dom.window.document.getElementById('modern-1').dataset.asbHidden,'true');assert.equal(dom.window.document.querySelector('main').hasAttribute('data-asb-hidden'),false);
+});
 const unityCard = id => `<li><article data-test="search-results-product-card-10"><a href="/packages/package/10"><img></a><div class="h-5"><a data-test="product-card-publisher" href="/publishers/${id}">Unity Seller</a></div></article></li>`;
 
 test('v1 migration preserves Unity blocks and global pause; v2 namespaces identical IDs',()=>{

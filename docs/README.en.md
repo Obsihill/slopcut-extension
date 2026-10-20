@@ -16,5 +16,5 @@ Back up your list before switching from an unpacked install to a store install.
 
 See the [main README](../README.md), [privacy policy](privacy.html), and [submission materials](store/SUBMISSION.md).
 
-Version 1.5.0 is available in the store. Version 1.6.0, adding CGTrader, Fab and TurboSquid, is under update review; the GitHub source is available for a development install.
+Version 1.6.0 is available in the store. Version 1.6.1 fixes the new BOOTH recommendation cards and is under update review; the GitHub source is available for a development install.
 Published by SlopCut under the [MIT license](../LICENSE).

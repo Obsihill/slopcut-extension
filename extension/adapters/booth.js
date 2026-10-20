@@ -10,7 +10,7 @@ ASBAdapters.push({
     }
     return Boolean(ASB.boothId(`https://${loc.hostname}/`)) && /^\/(?:items(?:\/|$)|categories(?:\/|$)|search(?:\/|$)|$)/.test(loc.pathname);
   },
-  selector: 'a.item-card__shop-name-anchor, a[data-product-list*="to shop_index"], .shop-name > a, .home-link-container__nickname > a',
+  selector: 'a.item-card__shop-name-anchor, .item-card-wrapper a[href], a[data-product-list*="to shop_index"], .shop-name > a, .home-link-container__nickname > a',
   publisher(a) {
     let url; try {url = new URL(a.getAttribute('href'), location.href);} catch {return null;}
     // Product-description links, carts, legal/contact links, and avatars are not seller labels.
@@ -20,9 +20,12 @@ ASBAdapters.push({
   },
   prepare(a) {
     if (a.closest('.item-card__shop-info,.shop-name,.home-link-container__nickname')) a.parentElement.classList.add('asb-publisher-row');
+    // React recommendations mix the seller with category/title/price siblings.
+    // Keep just the seller link inline; flexing its parent would flatten the card.
+    else if (a.closest('.item-card-wrapper')) a.classList.add('asb-booth-seller');
   },
   cardFor(a) {
-    const card = a.closest('.item-card__wrap');
+    const card = a.closest('.item-card__wrap, .item-card-wrapper');
     if (!card) return null;
     // Some layouts wrap cards in grid cells; hide that cell too to avoid empty slots.
     const p = card.parentElement;

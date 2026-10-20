@@ -18,7 +18,7 @@
 
 [Microsoft Edge 스토어에서 설치](https://microsoftedge.microsoft.com/addons/detail/bggbknekgpfjabnipaogajdlemaijdoj)
 
-스토어에는 1.5.0이 공개되어 있습니다. CGTrader·Fab·TurboSquid를 추가한 1.6.0은 업데이트 심사 중입니다.
+스토어 공개 버전은 1.6.0입니다. BOOTH 추천 상품의 새 카드 구조를 지원하는 1.6.1은 업데이트 심사 중입니다.
 
 직접 설치하려면:
 
